@@ -17,7 +17,9 @@ class AdvertiserFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => fake()->name(),
+            'email' => fake()->unique()->safeEmail(),
+            'is_active' => true,
         ];
     }
 }
