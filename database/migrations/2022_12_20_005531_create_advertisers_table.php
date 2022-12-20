@@ -15,6 +15,9 @@ return new class extends Migration
     {
         Schema::create('advertisers', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('email');
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }
