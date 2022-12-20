@@ -4,6 +4,11 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\StoreUpdateCategory;
+use App\Http\Resources\Api\Category\CategoryResource;
+use App\Http\Resources\Api\Category\DeleteResource;
+use App\Http\Resources\Api\Category\StoreResource;
+use App\Http\Resources\Api\Category\UpdateResource;
+use App\Http\Resources\Api\NotFoundResource;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -11,11 +16,15 @@ class CategoriesController extends Controller
 {
     public function index()
     {
-        return Category::with('ad')->paginate(10);
+        return CategoryResource::collection(Category::with('ad')->paginate(10));
     }
 
-    public function show($category){
-        return Category::find($category);
+    public function show($id){
+        $category = Category::find($id);
+        if($category)
+            return new CategoryResource($category);
+
+        return new NotFoundResource($id);
     }
 
     public function store(StoreUpdateCategory $request){
@@ -26,41 +35,26 @@ class CategoriesController extends Controller
             'is_active' => $is_active
         ]);
 
-        return response()->json([
-            'category' => $category,
-            'message' => 'category inserted successfully',
-            'code' => 200
-        ]);
+        return new StoreResource($category);
     }
 
     public function update(StoreUpdateCategory $request, $id){
         $is_active = ($request->is_active == null || $request->is_active) ? 1 : 0;
-        $category = Category::find($id)->update([
+        Category::find($id)->update([
             'name' => $request->name,
             'description' => $request->description,
             'is_active' => $is_active
         ]);
 
-        return response()->json([
-            'category' => Category::find($id),
-            'message' => 'category updated successfully',
-            'code' => 200
-        ]);
+        return new UpdateResource(Category::find($id));
     }
-    public function destroy($category){
-        $category = Category::find($category);
+    public function destroy($id){
+        $category = Category::find($id);
         if($category){
             $category->delete();
-            return response()->json([
-                'category' => $category,
-                'message' => 'deleted successfully',
-                'code' => 200
-            ]);
+            return new DeleteResource($category);
         }
 
-        return response()->json([
-            'message' => 'category not found',
-            'code' => 404
-        ]);
+        return new NotFoundResource($id);
     }
 }
