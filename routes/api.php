@@ -52,6 +52,9 @@ Route::controller(\App\Http\Controllers\Api\AdsController::class)
         Route::put('/update/{id}', 'update')->name('update');
         Route::delete('/destroy/{id}', 'destroy')->name('destroy');
 
+        // get ads by its tags and categories(filtering)
+        Route::get('/category/{id}', 'getByCategory')->name('getByCategory');
+        Route::get('/tag/{id}', 'getByTag')->name('getByTag');
     });
 
 Route::controller(\App\Http\Controllers\Api\AdvertisersController::class)

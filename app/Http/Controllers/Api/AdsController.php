@@ -60,4 +60,20 @@ class AdsController extends Controller
 
         return new NotFoundResource($id);
     }
+
+    public function getByCategory($id){
+        $ads = Ad::whereHas('category', function($q) use($id){
+            $q->where('id',$id);
+        })->with('advertiser')->paginate(10);
+
+        return AdResource::collection($ads);
+    }
+
+    public function getByTag($id){
+        $ads = Ad::whereHas('tags', function($q) use($id){
+            $q->where('tags.id',$id);
+        })->with('advertiser')->get();
+
+        return AdResource::collection($ads);
+    }
 }
