@@ -68,3 +68,5 @@ Route::controller(\App\Http\Controllers\Api\AdvertisersController::class)
         Route::delete('/destroy/{id}', 'destroy')->name('destroy');
 
     });
+
+Route::get('send-reminders', [\App\Http\Controllers\Api\SendEmailController::class, 'send']);
