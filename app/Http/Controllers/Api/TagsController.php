@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\StoreUpdateTag;
+use App\Http\Requests\Api\StoreUpdateTagRequest;
 use App\Http\Resources\Api\NotFoundResource;
 use App\Http\Resources\Api\Tag\DeleteResource;
 use App\Http\Resources\Api\Tag\StoreResource;
@@ -27,7 +27,7 @@ class TagsController extends Controller
         return new NotFoundResource($id);
     }
 
-    public function store(StoreUpdateTag $request){
+    public function store(StoreUpdateTagRequest $request){
         $is_active = ($request->is_active == null || $request->is_active) ? 1 : 0;
         $tag = Tag::create([
             'name' => $request->name,
@@ -39,7 +39,7 @@ class TagsController extends Controller
         return new StoreResource(Tag::where('id', $tag->id)->with('ads')->get());
     }
 
-    public function update(StoreUpdateTag $request, $id){
+    public function update(StoreUpdateTagRequest $request, $id){
         $is_active = ($request->is_active == null || $request->is_active) ? 1 : 0;
         Tag::find($id)->update([
             'name' => $request->name,

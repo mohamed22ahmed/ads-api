@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\StoreUpdateCategory;
+use App\Http\Requests\Api\StoreUpdateCategoryRequest;
 use App\Http\Resources\Api\Category\CategoryResource;
 use App\Http\Resources\Api\Category\DeleteResource;
 use App\Http\Resources\Api\Category\StoreResource;
@@ -27,7 +27,7 @@ class CategoriesController extends Controller
         return new NotFoundResource($id);
     }
 
-    public function store(StoreUpdateCategory $request){
+    public function store(StoreUpdateCategoryRequest $request){
         $is_active = ($request->is_active == null || $request->is_active) ? 1 : 0;
         $category = Category::create([
             'name' => $request->name,
@@ -38,7 +38,7 @@ class CategoriesController extends Controller
         return new StoreResource(Category::where('id', $category->id)->with('ads')->get());
     }
 
-    public function update(StoreUpdateCategory $request, $id){
+    public function update(StoreUpdateCategoryRequest $request, $id){
         $is_active = ($request->is_active == null || $request->is_active) ? 1 : 0;
         Category::find($id)->update([
             'name' => $request->name,

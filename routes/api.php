@@ -41,3 +41,15 @@ Route::controller(\App\Http\Controllers\Api\TagsController::class)
         Route::delete('/destroy/{id}', 'destroy')->name('destroy');
 
     });
+
+Route::controller(\App\Http\Controllers\Api\AdsController::class)
+    ->prefix('ads')
+    ->name('ads.')
+    ->group(function(){
+        Route::get('/', 'index')->name('index');
+        Route::get('/{id}', 'show')->name('show');
+        Route::post('/store', 'store')->name('store');
+        Route::put('/update/{id}', 'update')->name('update');
+        Route::delete('/destroy/{id}', 'destroy')->name('destroy');
+
+    });
