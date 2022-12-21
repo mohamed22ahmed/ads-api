@@ -19,7 +19,7 @@ class Category extends Model
     protected $casts = [
         'is_active' => 'boolean'
     ];
-    public function ad() :HasMany
+    public function ads() :HasMany
     {
         return $this->hasMany(Ad::class);
     }

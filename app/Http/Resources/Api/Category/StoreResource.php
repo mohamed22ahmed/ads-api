@@ -16,7 +16,7 @@ class StoreResource extends JsonResource
     {
         return [
             'category' => new CategoryResource($request),
-            'message' => 'category stored successfully',
+            'message' => 'category created successfully',
             'status_code' => 200
         ];
     }

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Api\Category;
+namespace App\Http\Resources\Api\Tag;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class DeleteResource extends JsonResource
+class StoreResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,7 +15,8 @@ class DeleteResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'message' => 'category with id = '.$request->id.' deleted successfully',
+            'tag' => new TagResource($request),
+            'message' => 'tag created successfully',
             'status_code' => 200
         ];
     }

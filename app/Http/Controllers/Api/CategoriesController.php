@@ -16,13 +16,13 @@ class CategoriesController extends Controller
 {
     public function index()
     {
-        return CategoryResource::collection(Category::with('ad')->paginate(10));
+        return CategoryResource::collection(Category::with('ads')->paginate(10));
     }
 
     public function show($id){
-        $category = Category::find($id);
+        $category = Category::where('id', $id)->with('ads')->get();
         if($category)
-            return new CategoryResource($category);
+            return CategoryResource::collection($category);
 
         return new NotFoundResource($id);
     }
@@ -35,7 +35,7 @@ class CategoriesController extends Controller
             'is_active' => $is_active
         ]);
 
-        return new StoreResource($category);
+        return new StoreResource(Category::where('id', $category->id)->with('ads')->get());
     }
 
     public function update(StoreUpdateCategory $request, $id){
@@ -46,13 +46,13 @@ class CategoriesController extends Controller
             'is_active' => $is_active
         ]);
 
-        return new UpdateResource(Category::find($id));
+        return new UpdateResource(Category::where('id', $id)->with('ads')->get());
     }
     public function destroy($id){
         $category = Category::find($id);
         if($category){
             $category->delete();
-            return new DeleteResource($category);
+            return new DeleteResource($id);
         }
 
         return new NotFoundResource($id);

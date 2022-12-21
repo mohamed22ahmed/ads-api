@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Resources\Api\Category;
+namespace App\Http\Resources\Api\Ad;
 
-use App\Http\Resources\Api\Ad\AdResource;
+use App\Http\Resources\Api\Advertiser\AdvertiserResource;
+use App\Http\Resources\Api\Category\CategoryResource;
+use App\Http\Resources\Api\Tag\TagResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CategoryResource extends JsonResource
+class AdResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,12 +19,13 @@ class CategoryResource extends JsonResource
     {
         return [
             "id" => $this->id,
-            "name" => $this->name,
+            "type" => $this->type,
+            "title" => $this->title,
             "description" => $this->description,
-            "is_active" => $this->is_active,
+            "start_date" => $this->start_date,
             "created_at" => $this->created_at,
             "updated_at" => $this->updated_at,
-            "ads" => AdResource::collection($this->ads ?? [])
+            "Advertiser" => new AdvertiserResource($this->advertiser),
         ];
     }
 }

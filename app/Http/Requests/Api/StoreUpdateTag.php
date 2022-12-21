@@ -4,14 +4,14 @@ namespace App\Http\Requests\Api;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreUpdateCategory extends FormRequest
+class StoreUpdateTag extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize(): bool
+    public function authorize()
     {
         return true;
     }
@@ -21,11 +21,12 @@ class StoreUpdateCategory extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             'name' => 'required',
-            'description' => 'required'
+            'description' => 'required',
+            'color' => 'required'
         ];
     }
 }
