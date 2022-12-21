@@ -36,6 +36,9 @@ class AdsController extends Controller
             'start_date' => date('Y-m-d', strtotime($request->start_date))
         ]);
 
+        if(isset($request->tags)) {
+            $ad->tags()->attach(explode(',', $request->tags));
+        }
         return new StoreResource(Ad::where('id', $ad->id)->with('advertiser')->get());
     }
 
@@ -49,6 +52,9 @@ class AdsController extends Controller
             'start_date' => date('Y-m-d', strtotime($request->start_date))
         ]);
 
+        if(isset($request->tags)) {
+            Ad::find($id)->tags()->sync(explode(',', $request->tags));
+        }
         return new UpdateResource(Ad::where('id', $id)->with('advertiser')->get());
     }
     public function destroy($id){

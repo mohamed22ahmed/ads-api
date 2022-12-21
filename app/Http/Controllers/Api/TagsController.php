@@ -35,6 +35,9 @@ class TagsController extends Controller
             'is_active' => $is_active
         ]);
 
+        if(isset($request->ads)) {
+            $tag->ads()->attach(explode(',', $request->ads));
+        }
         return new StoreResource(Tag::where('id', $tag->id)->with('ads')->get());
     }
 
@@ -46,6 +49,10 @@ class TagsController extends Controller
             'color' => $request->color,
             'is_active' => $is_active
         ]);
+
+        if(isset($request->ads)) {
+            Tag::where('id', $id)->first()->ads()->sync(array_map('intval', explode(',', $request->ads)));
+        }
 
         return new UpdateResource(Tag::where('id', $id)->with('ads')->get());
     }

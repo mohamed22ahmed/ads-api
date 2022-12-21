@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Api\Tag;
 
 use App\Http\Resources\Api\Ad\AdResource;
+use App\Models\Ad;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class TagResource extends JsonResource
@@ -15,6 +16,8 @@ class TagResource extends JsonResource
      */
     public function toArray($request)
     {
+        $ads = Ad::whereIn('id', array_map('intval', explode(',', $this->ads)))->get();
+
         return [
             "id" => $this->id,
             "name" => $this->name,
@@ -23,7 +26,7 @@ class TagResource extends JsonResource
             "is_active" => $this->is_active,
             "created_at" => $this->created_at,
             "updated_at" => $this->updated_at,
-            "ads" => AdResource::collection($this->ads ?? [])
+            "ads" => AdResource::collection(gettype($this->ads) == 'string' ? $ads : ($this->ads ?? []))
         ];
     }
 }
