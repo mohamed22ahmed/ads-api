@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\StoreUpdateCategoryRequest;
 use App\Http\Resources\Api\Category\CategoryResource;
-use App\Http\Resources\Api\Category\DeleteResource;
+use App\Http\Resources\Api\DeleteResource;
 use App\Http\Resources\Api\Category\StoreResource;
 use App\Http\Resources\Api\Category\UpdateResource;
 use App\Http\Resources\Api\NotFoundResource;

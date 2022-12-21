@@ -4,13 +4,12 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\StoreUpdateTagRequest;
+use App\Http\Resources\Api\DeleteResource;
 use App\Http\Resources\Api\NotFoundResource;
-use App\Http\Resources\Api\Tag\DeleteResource;
 use App\Http\Resources\Api\Tag\StoreResource;
 use App\Http\Resources\Api\Tag\TagResource;
 use App\Http\Resources\Api\Tag\UpdateResource;
 use App\Models\Tag;
-use Illuminate\Http\Request;
 
 class TagsController extends Controller
 {

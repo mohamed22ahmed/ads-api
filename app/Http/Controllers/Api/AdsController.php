@@ -5,14 +5,11 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\StoreUpdateAdRequest;
 use App\Http\Resources\Api\Ad\AdResource;
-use App\Http\Resources\Api\Ad\DeleteResource;
+use App\Http\Resources\Api\DeleteResource;
 use App\Http\Resources\Api\Ad\StoreResource;
 use App\Http\Resources\Api\Ad\UpdateResource;
 use App\Http\Resources\Api\NotFoundResource;
 use App\Models\Ad;
-use App\Models\Advertiser;
-use App\Models\Category;
-use Illuminate\Http\Request;
 
 class AdsController extends Controller
 {

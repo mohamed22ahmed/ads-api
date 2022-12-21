@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\Api\Category;
+namespace App\Http\Resources\Api;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -15,7 +15,7 @@ class DeleteResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'message' => 'category with id = '.$request->id.' deleted successfully',
+            'message' => 'the item with id = '.$request->id.' deleted successfully',
             'status_code' => 200
         ];
     }
