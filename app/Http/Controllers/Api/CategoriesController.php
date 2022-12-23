@@ -20,7 +20,7 @@ class CategoriesController extends Controller
     }
 
     public function show($id){
-        $category = Category::where('id', $id)->with('ads')->get();
+        $category = Category::getCategoryWithAds($id)->get();
         if($category)
             return CategoryResource::collection($category);
 
@@ -35,7 +35,7 @@ class CategoriesController extends Controller
             'is_active' => $is_active
         ]);
 
-        return new StoreResource(Category::where('id', $category->id)->with('ads')->get());
+        return new StoreResource(Category::getCategoryWithAds($category->id)->get());
     }
 
     public function update(StoreUpdateCategoryRequest $request, $id){
@@ -46,7 +46,7 @@ class CategoriesController extends Controller
             'is_active' => $is_active
         ]);
 
-        return new UpdateResource(Category::where('id', $id)->with('ads')->get());
+        return new UpdateResource(Category::getCategoryWithAds($id)->get());
     }
     public function destroy($id){
         $category = Category::find($id);

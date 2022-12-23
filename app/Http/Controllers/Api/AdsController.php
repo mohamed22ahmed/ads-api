@@ -19,7 +19,7 @@ class AdsController extends Controller
     }
 
     public function show($id){
-        $ad = Ad::where('id', $id)->with('advertiser')->get();
+        $ad = Ad::getAdWithAdvertiser($id)->get();
         if($ad)
             return AdResource::collection($ad);
 
@@ -39,7 +39,7 @@ class AdsController extends Controller
         if(isset($request->tags)) {
             $ad->tags()->attach(explode(',', $request->tags));
         }
-        return new StoreResource(Ad::where('id', $ad->id)->with('advertiser')->get());
+        return new StoreResource(Ad::getAdWithAdvertiser($ad->id)->get());
     }
 
     public function update(StoreUpdateAdRequest $request, $id){
@@ -55,7 +55,7 @@ class AdsController extends Controller
         if(isset($request->tags)) {
             Ad::find($id)->tags()->sync(explode(',', $request->tags));
         }
-        return new UpdateResource(Ad::where('id', $id)->with('advertiser')->get());
+        return new UpdateResource(Ad::getAdWithAdvertiser($id)->get());
     }
     public function destroy($id){
         $ad = Ad::find($id);

@@ -24,4 +24,8 @@ class Tag extends Model
     {
         return $this->belongsToMany(Ad::class);
     }
+
+    public function scopeGetTagWithAds($query, $id){
+        return $query->where('id', $id)->with('ads');
+    }
 }

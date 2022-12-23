@@ -19,7 +19,7 @@ class TagsController extends Controller
     }
 
     public function show($id){
-        $tag = Tag::where('id', $id)->with('ads')->get();
+        $tag = Tag::getTagWithAds($id)->get();
         if($tag)
             return TagResource::collection($tag);
 
@@ -38,7 +38,7 @@ class TagsController extends Controller
         if(isset($request->ads)) {
             $tag->ads()->attach(explode(',', $request->ads));
         }
-        return new StoreResource(Tag::where('id', $tag->id)->with('ads')->get());
+        return new StoreResource(Tag::getTagWithAds($tag->id)->get());
     }
 
     public function update(StoreUpdateTagRequest $request, $id){
@@ -54,7 +54,7 @@ class TagsController extends Controller
             Tag::where('id', $id)->first()->ads()->sync(array_map('intval', explode(',', $request->ads)));
         }
 
-        return new UpdateResource(Tag::where('id', $id)->with('ads')->get());
+        return new UpdateResource(Tag::getTagWithAds($id)->get());
     }
     public function destroy($id){
         $tag = Tag::find($id);

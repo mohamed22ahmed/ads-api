@@ -23,4 +23,8 @@ class Category extends Model
     {
         return $this->hasMany(Ad::class);
     }
+
+    public function scopeGetCategoryWithAds($query, $id){
+        return $query->where('id', $id)->with('ads');
+    }
 }
